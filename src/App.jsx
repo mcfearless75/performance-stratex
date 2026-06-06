@@ -494,8 +494,8 @@ export default function App(){
           </div></Reveal>
           <div className="mob-1 mob-2" style={{display:'grid',gridTemplateColumns:tab?'repeat(2,1fr)':`repeat(${RECIPIENTS.length},1fr)`,gap:1,background:BD}}>
             {RECIPIENTS.map((r,i)=>(
-              <Reveal key={r.type} delay={i*.07}>
-                <div style={{background:N,padding:'28px 28px',position:'relative',overflow:'hidden',transition:'background .25s ease'}}>
+              <Reveal key={r.type} delay={i*.07} style={{height:'100%'}}>
+                <div style={{background:N,padding:'28px 28px',position:'relative',overflow:'hidden',transition:'background .25s ease',height:'100%'}}>
                   <div style={{position:'absolute',top:0,left:0,width:2,height:'100%',background:`linear-gradient(to bottom,${G},transparent)`}}/>
                   <div style={{fontFamily:MONO,fontSize:9,color:TF,letterSpacing:'.12em',textTransform:'uppercase',marginBottom:9}}>{r.when}</div>
                   <h4 style={{fontFamily:SERIF,fontSize:mob?17:19,fontWeight:400,color:TP,marginBottom:12,lineHeight:1.3}}>{r.type}</h4>
