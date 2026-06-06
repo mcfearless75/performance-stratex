@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 
 const G="#C8A96E",N="#080C18",NC="#0F1525",NL="#161D30",BD="#1E2840",TP="#EDE8DF",TM="#7A7F94",TF="#3A4060";
 const SERIF="'Cormorant Garamond',Georgia,serif",SANS="'Syne',sans-serif",MONO="'Syne Mono',monospace";
@@ -195,14 +197,20 @@ function MobMenu({open,close}){
 export default function App(){
   const[gate,setGate]=useState(null);
   const[menu,setMenu]=useState(false);
+  const[route,setRoute]=useState(typeof window!=='undefined'?window.location.hash:'');
   const ww=useW();const mob=ww<768,tab=ww<1024;
   const docsByStage={};DOCS.forEach(d=>{if(!docsByStage[d.stage])docsByStage[d.stage]=[];docsByStage[d.stage].push(d);});
+
+  useEffect(()=>{const h=()=>setRoute(window.location.hash);window.addEventListener('hashchange',h);return()=>window.removeEventListener('hashchange',h);},[]);
 
   useEffect(()=>{
     const l=document.createElement('link');l.rel='stylesheet';
     l.href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Syne:wght@400;500;600;700&family=Syne+Mono&display=swap';
     document.head.appendChild(l);return()=>{if(document.head.contains(l))document.head.removeChild(l);};
   },[]);
+
+  if(route.startsWith('#/privacy'))return<Privacy/>;
+  if(route.startsWith('#/terms'))return<Terms/>;
 
   return(
     <div style={{background:N,color:TP,fontFamily:SANS,minHeight:'100vh',overflowX:'hidden'}}>
@@ -411,8 +419,8 @@ export default function App(){
             </div>
           </Reveal>
           <div className="mob-1" style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:2,background:BD}}>
-            <Reveal dir="left">
-              <div style={{background:N,padding:mob?'34px 26px':'50px 42px'}}>
+            <Reveal dir="left" style={{height:'100%'}}>
+              <div style={{background:N,padding:mob?'34px 26px':'50px 42px',height:'100%'}}>
                 <div style={{fontFamily:MONO,fontSize:9,color:G,letterSpacing:'.18em',textTransform:'uppercase',marginBottom:18}}>Evidence grading</div>
                 <h3 style={{fontFamily:SERIF,fontSize:mob?20:24,fontWeight:300,color:TP,marginBottom:16,lineHeight:1.3}}>Every claim graded before it reaches a funder.</h3>
                 <p style={{color:TM,lineHeight:1.8,marginBottom:28,fontSize:13}}>No claim enters a document without an evidence grade. Unverified assumptions are flagged explicitly — never silently included.</p>
@@ -429,8 +437,8 @@ export default function App(){
                 </div>
               </div>
             </Reveal>
-            <Reveal dir="right">
-              <div style={{background:N,padding:mob?'34px 26px':'50px 42px'}}>
+            <Reveal dir="right" style={{height:'100%'}}>
+              <div style={{background:N,padding:mob?'34px 26px':'50px 42px',height:'100%'}}>
                 <div style={{fontFamily:MONO,fontSize:9,color:G,letterSpacing:'.18em',textTransform:'uppercase',marginBottom:18}}>Adversarial review</div>
                 <h3 style={{fontFamily:SERIF,fontSize:mob?20:24,fontWeight:300,color:TP,marginBottom:16,lineHeight:1.3}}>Independent AI panels challenge every stage.</h3>
                 <p style={{color:TM,lineHeight:1.8,marginBottom:28,fontSize:13}}>After every stage, a panel of different AI models attempts to break the work. The builder never reviews its own output.</p>
@@ -446,8 +454,8 @@ export default function App(){
                 </div>
               </div>
             </Reveal>
-            <Reveal dir="left">
-              <div style={{background:NC,padding:mob?'34px 26px':'50px 42px',position:'relative',overflow:'hidden'}}>
+            <Reveal dir="left" style={{height:'100%'}}>
+              <div style={{background:NC,padding:mob?'34px 26px':'50px 42px',position:'relative',overflow:'hidden',height:'100%'}}>
                 <div style={{fontFamily:MONO,fontSize:9,color:G,letterSpacing:'.18em',textTransform:'uppercase',marginBottom:18}}>The locked block</div>
                 <h3 style={{fontFamily:SERIF,fontSize:mob?20:24,fontWeight:300,color:TP,marginBottom:16,lineHeight:1.3}}>One financial model. Every document reads from it.</h3>
                 <p style={{color:TM,lineHeight:1.8,marginBottom:24,fontSize:13}}>The model produces one locked summary block. Every downstream document is a live read. Figures cannot contradict each other.</p>
@@ -461,8 +469,8 @@ export default function App(){
                 </div>
               </div>
             </Reveal>
-            <Reveal dir="right">
-              <div style={{background:NC,padding:mob?'34px 26px':'50px 42px'}}>
+            <Reveal dir="right" style={{height:'100%'}}>
+              <div style={{background:NC,padding:mob?'34px 26px':'50px 42px',height:'100%'}}>
                 <div style={{fontFamily:MONO,fontSize:9,color:G,letterSpacing:'.18em',textTransform:'uppercase',marginBottom:18}}>Proven on live ventures</div>
                 <h3 style={{fontFamily:SERIF,fontSize:mob?20:24,fontWeight:300,color:TP,marginBottom:16,lineHeight:1.3}}>Full document packs delivered. Not theory.</h3>
                 <p style={{color:TM,lineHeight:1.8,marginBottom:28,fontSize:13}}>The workflow validated end-to-end on three live engagements. The documents are real. The methodology works.</p>
@@ -593,7 +601,11 @@ export default function App(){
         <div style={{maxWidth:1200,margin:'0 auto',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:14}}>
           <div style={{fontFamily:SERIF,fontSize:15,color:TP}}>Performance <em style={{color:G,fontStyle:'italic'}}>StratEx</em></div>
           <div style={{fontFamily:MONO,fontSize:9,color:TF,letterSpacing:'.06em'}}>2026 Performance StratEx · Forensic-grade investor documentation</div>
-          <div style={{display:'flex',gap:18}}>{['Privacy','Terms','Contact'].map(l=><span key={l} style={{fontFamily:MONO,fontSize:9,color:TF,cursor:'pointer',transition:'color .2s ease',letterSpacing:'.06em'}}>{l}</span>)}</div>
+          <div style={{display:'flex',gap:18}}>
+            <a href="#/privacy" style={{fontFamily:MONO,fontSize:9,color:TF,textDecoration:'none',letterSpacing:'.06em'}}>Privacy</a>
+            <a href="#/terms" style={{fontFamily:MONO,fontSize:9,color:TF,textDecoration:'none',letterSpacing:'.06em'}}>Terms</a>
+            <a href="#contact" style={{fontFamily:MONO,fontSize:9,color:TF,textDecoration:'none',letterSpacing:'.06em'}}>Contact</a>
+          </div>
         </div>
       </footer>
     </div>
