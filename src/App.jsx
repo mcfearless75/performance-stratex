@@ -2,7 +2,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 
-const G="#C8A96E",N="#080C18",NC="#0F1525",NL="#161D30",BD="#1E2840",TP="#EDE8DF",TM="#7A7F94",TF="#3A4060";
+const G="#C8A96E",N="#080C18",NC="#0F1525",NL="#161D30",BD="#1E2840",TP="#EDE8DF",TM="#7A7F94",TF="#5A627E";
+const CTA_EMAIL="mailto:hello@performancestratex.com?subject=Performance%20StratEx%20%E2%80%94%20Introductory%20call";
 const SERIF="'Cormorant Garamond',Georgia,serif",SANS="'Syne',sans-serif",MONO="'Syne Mono',monospace";
 const SC={INTAKE:"#5B8C5A",RESEARCH:"#4A6FA5",STRATEGY:"#7B5EA7",OUTPUT:"#C8A96E",CONTROL:"#B85C38"};
 
@@ -188,7 +189,7 @@ function MobMenu({open,close}){
         {links.map(([l,h],i)=><a key={l} href={h} onClick={close} style={{fontFamily:MONO,fontSize:12,letterSpacing:'.1em',textTransform:'uppercase',color:TM,textDecoration:'none',padding:'15px 0',borderBottom:`1px solid ${BD}`,opacity:open?1:0,transform:open?'none':'translateX(20px)',transition:`all .4s cubic-bezier(.16,1,.3,1) ${.12+i*.07}s`}}>{l}</a>)}
       </nav>
       <div style={{marginTop:'auto'}}>
-        <button style={{width:'100%',padding:15,background:G,color:N,fontFamily:SANS,fontWeight:700,fontSize:11,letterSpacing:'.12em',textTransform:'uppercase',border:'none',cursor:'pointer',transition:'all .25s ease'}}>Book a Call</button>
+        <a href="mailto:hello@performancestratex.com?subject=Performance%20StratEx%20%E2%80%94%20Introductory%20call" onClick={close} style={{display:'block',textAlign:'center',width:'100%',padding:15,background:G,color:N,fontFamily:SANS,fontWeight:700,fontSize:11,letterSpacing:'.12em',textTransform:'uppercase',textDecoration:'none',cursor:'pointer',transition:'all .25s ease'}}>Book a Call</a>
       </div>
     </div>
   </div>;
@@ -216,6 +217,8 @@ export default function App(){
     <div style={{background:N,color:TP,fontFamily:SANS,minHeight:'100vh',overflowX:'hidden'}}>
       <style>{`
         *{box-sizing:border-box;margin:0;padding:0;}
+        *:focus{outline:none;}
+        *:focus-visible{outline:2px solid ${G};outline-offset:3px;border-radius:2px;}
         ::selection{background:${G}33;color:${TP};}
         ::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:${N};}::-webkit-scrollbar-thumb{background:${G}55;border-radius:3px;}
         html{scroll-behavior:smooth;}
@@ -251,9 +254,9 @@ export default function App(){
           </div>
           <div className="dt" style={{display:'flex',gap:32,alignItems:'center'}}>
             {[["Methodology","#methodology"],["Documents","#documents"],["How It Works","#how-it-works"],["Contact","#contact"]].map(([l,h])=><a key={l} href={h} className="nav-a">{l}</a>)}
-            <button className="btn-g" style={{padding:'10px 22px',fontSize:11}}>Book a Call</button>
+            <a href={CTA_EMAIL} className="btn-g" style={{padding:'12px 22px',fontSize:11}}>Book a Call</a>
           </div>
-          <button className="mo" onClick={()=>setMenu(true)} style={{background:'none',border:`1px solid ${BD}`,color:TM,width:40,height:40,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',gap:5}}>
+          <button className="mo" aria-label="Open menu" onClick={()=>setMenu(true)} style={{background:'none',border:`1px solid ${BD}`,color:TM,width:44,height:44,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',gap:5}}>
             {[0,1,2].map(i=><span key={i} style={{width:18,height:1,background:TM,display:'block'}}/>)}
           </button>
         </div>
@@ -292,7 +295,7 @@ export default function App(){
               </Reveal>
               <Reveal delay={.3}>
                 <div style={{display:'flex',gap:12,flexWrap:'wrap',marginBottom:48}}>
-                  <button className="btn-g">Book an Introductory Call</button>
+                  <a href={CTA_EMAIL} className="btn-g">Book an Introductory Call</a>
                   <a href="#documents" className="btn-o">See the Pack</a>
                 </div>
               </Reveal>
@@ -386,9 +389,9 @@ export default function App(){
                   <div style={{flex:1,height:1,background:`linear-gradient(90deg,${SC[stage]}33,transparent)`}}/>
                 </div>
               </Reveal>
-              <div className="mob-1" style={{display:'grid',gridTemplateColumns:tab?'repeat(2,1fr)':'repeat(auto-fill,minmax(250px,1fr))',gap:1,background:BD}}>
+              <div className="mob-1" style={{display:'grid',gridTemplateColumns:tab?'repeat(2,1fr)':'repeat(auto-fit,minmax(250px,1fr))',gap:1,background:BD}}>
                 {docs.map((doc,i)=>(
-                  <Reveal key={doc.num} delay={i*.07}>
+                  <Reveal key={doc.num} delay={i*.07} style={{height:'100%'}}>
                     <TiltCard off={mob} style={{height:'100%'}}>
                       <div className="dc" style={{background:N,padding:'24px 22px',borderTop:`2px solid ${SC[stage]}44`,height:'100%'}}>
                         <div style={{display:'flex',justifyContent:'space-between',marginBottom:9}}>
@@ -579,8 +582,8 @@ export default function App(){
           </Reveal>
           <Reveal delay={.3}>
             <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',marginBottom:40}}>
-              <button className="btn-g">Book an Introductory Call</button>
-              <button className="btn-o">hello@performancestratex.com</button>
+              <a href={CTA_EMAIL} className="btn-g">Book an Introductory Call</a>
+              <a href="mailto:hello@performancestratex.com" className="btn-o">hello@performancestratex.com</a>
             </div>
           </Reveal>
           <Reveal delay={.4}>
