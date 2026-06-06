@@ -492,7 +492,7 @@ export default function App(){
             <span style={{fontFamily:MONO,fontSize:10,color:G,letterSpacing:'.2em',textTransform:'uppercase'}}>Who it's for</span>
             <h2 style={{fontFamily:SERIF,fontSize:'clamp(26px,4vw,50px)',fontWeight:300,marginTop:12,color:TP}}>Documents for every funding route.</h2>
           </div></Reveal>
-          <div className="mob-1" style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(280px,1fr))',gap:1,background:BD}}>
+          <div className="mob-1 mob-2" style={{display:'grid',gridTemplateColumns:tab?'repeat(2,1fr)':`repeat(${RECIPIENTS.length},1fr)`,gap:1,background:BD}}>
             {RECIPIENTS.map((r,i)=>(
               <Reveal key={r.type} delay={i*.07}>
                 <div style={{background:N,padding:'28px 28px',position:'relative',overflow:'hidden',transition:'background .25s ease'}}>
