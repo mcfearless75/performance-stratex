@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 
@@ -56,7 +56,7 @@ function useInView(t=0.12){
 function useCounter(target,duration=2000,active=false){
   const[c,sc]=useState(0);
   useEffect(()=>{
-    if(!active)return;let s=null;
+    if(!active||target===0)return;let s=null;
     const step=ts=>{if(!s)s=ts;const p=Math.min((ts-s)/duration,1);sc(Math.floor((1-Math.pow(1-p,3))*target));if(p<1)requestAnimationFrame(step);};
     requestAnimationFrame(step);
   },[target,duration,active]);return c;
@@ -238,11 +238,15 @@ export default function App(){
         .dc{transition:all .3s cubic-bezier(.16,1,.3,1);cursor:pointer;position:relative;overflow:hidden;}
         .dc:hover{transform:translateY(-5px) !important;box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px ${G}33 !important;}
         .dc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,${G}07,transparent);opacity:0;transition:opacity .3s;}.dc:hover::before{opacity:1;}
-        .gr{transition:transform .2s ease;}.gr:hover{transform:translateX(5px);}
+        .gr{transition:transform .2s ease;}.gr:hover{transform:translateX(3px);background:${NL}!important;}
+        .skip-link{position:absolute;left:-9999px;top:8px;padding:10px 16px;background:${G};color:${N};font-family:${SANS};font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;z-index:300;}
+        .skip-link:focus{left:8px;}
         @media(max-width:768px){.dt{display:none !important;}.mob-2{grid-template-columns:1fr 1fr !important;}.mob-1{grid-template-columns:1fr !important;}}
         @media(min-width:769px){.mo{display:none !important;}}
-        @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important;}}
+        @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important;}animateMotion{display:none;}}
       `}</style>
+
+      <a href="#methodology" className="skip-link">Skip to content</a>
 
       <MobMenu open={menu} close={()=>setMenu(false)}/>
 
@@ -315,10 +319,6 @@ export default function App(){
                 <DocFloat title="Business Plan Financial Model" stage="INTAKE" delay={0} top="2%" right="8%" rotate={-3}/>
                 <DocFloat title="Market & Competitor Intelligence Report" stage="RESEARCH" delay={1.4} top="32%" right="2%" rotate={2}/>
                 <DocFloat title="Go-to-Market Strategy" stage="STRATEGY" delay={.7} top="62%" right="12%" rotate={-1.5}/>
-                <svg style={{position:'absolute',inset:0,width:'100%',height:'100%',pointerEvents:'none',overflow:'visible'}} viewBox="0 0 300 440">
-                  <line x1="150" y1="110" x2="190" y2="200" stroke={G} strokeWidth=".5" strokeDasharray="4 7" opacity=".25"/>
-                  <line x1="190" y1="200" x2="170" y2="295" stroke={G} strokeWidth=".5" strokeDasharray="4 7" opacity=".25"/>
-                </svg>
               </div>
             )}
           </div>
@@ -539,12 +539,12 @@ export default function App(){
                 {[["Generic templates filled in","Tailored model built from your inputs"],["Figures retyped between documents","One locked source — live formula links"],["Assumptions presented as facts","V/S/E/U evidence grading throughout"],["No cross-document reconciliation","10 key figures verified at Gate D"],["Documents you produce yourself","Adviser-signed, gate-enforced workflow"]].map(([bad,good],i)=>(
                   <Reveal key={i} delay={i*.07}>
                     <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:1,background:BD}}>
-                      <div style={{padding:'14px 16px',background:N,display:'flex',gap:8,alignItems:'flex-start'}}>
-                        <span style={{color:'#B85C38',fontFamily:MONO,fontSize:11,flexShrink:0,marginTop:1}}>x</span>
+                      <div style={{padding:'14px 16px',background:N,display:'flex',gap:10,alignItems:'flex-start'}}>
+                        <svg width="14" height="14" viewBox="0 0 14 14" style={{flexShrink:0,marginTop:3}} aria-hidden="true"><path d="M3 3 L11 11 M11 3 L3 11" stroke="#B85C38" strokeWidth="1.6" strokeLinecap="round"/></svg>
                         <span style={{fontSize:12,color:TM,lineHeight:1.5}}>{bad}</span>
                       </div>
-                      <div style={{padding:'14px 16px',background:NC,display:'flex',gap:8,alignItems:'flex-start'}}>
-                        <span style={{color:'#5B8C5A',fontFamily:MONO,fontSize:11,flexShrink:0,marginTop:1}}>v</span>
+                      <div style={{padding:'14px 16px',background:NC,display:'flex',gap:10,alignItems:'flex-start'}}>
+                        <svg width="14" height="14" viewBox="0 0 14 14" style={{flexShrink:0,marginTop:3}} aria-hidden="true"><path d="M2.5 7.5 L5.5 10.5 L11.5 3.5" stroke="#5B8C5A" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none"/></svg>
                         <span style={{fontSize:12,color:TP,lineHeight:1.5}}>{good}</span>
                       </div>
                     </div>

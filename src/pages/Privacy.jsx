@@ -72,8 +72,8 @@ export default function Privacy() {
       <h3>9. Security</h3>
       <p>Data is encrypted in transit (TLS) and at rest where the processor supports it. Access to client engagement data is restricted to Lynsey and any directly engaged adviser bound by written confidentiality. Document delivery links are token-protected, time-limited, and rate-limited. We do not request or store payment card details directly.</p>
 
-      <h3>10. Cookies</h3>
-      <p>The marketing site uses no advertising cookies and no third-party trackers. We may use minimal first-party analytics to understand site usage. The intake portal uses functional cookies necessary for authentication only.</p>
+      <h3>10. Cookies and analytics</h3>
+      <p>The marketing site uses no cookies, no advertising trackers and no third-party analytics. We do not record IP addresses, page-view profiles, or device fingerprints from public-site visitors. If we introduce privacy-respecting analytics in future (for example, a self-hosted aggregate counter), this policy will be updated and the change disclosed here. The intake portal, when active, uses functional cookies necessary for authentication only.</p>
 
       <h3>11. Changes</h3>
       <p>We update this policy when our processing changes materially. The "last updated" date at the top of this page reflects the current version. Material changes affecting active engagements will be notified by email.</p>
